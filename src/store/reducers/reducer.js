@@ -1,7 +1,8 @@
 import { EDIT_TASK, DELETE_TASK, ADD_TASK, BOOLEAN_FOR_EDIT, MARK_TASK_AS_COMPLETE } from '../actionTypes';
 
 const initialState = {
-    taskArray: [{ task_name: 'testtask', id: 12323, isActive: true }, { task_name: 'testtask2', id: 123544, isActive: true }],
+    // taskArray: [{ task_name: 'testtask', id: 12323, isActive: true }, { task_name: 'testtask2', id: 123544, isActive: true }],
+    taskArray: [],
     editBool: false
 }
 

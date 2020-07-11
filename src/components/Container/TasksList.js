@@ -4,23 +4,20 @@ import Button from 'react-bootstrap/Button'
 import Task from './Task';
 function List(props) {
 
-    const { tasksList, deleteTask, editTask, markTaskComplete } = props;
-    const [tasksToShow, setTasktoShow] = React.useState([]);
-    const [activeButton, setActiveButton] = React.useState('All');
+    const { tasksList, deleteTask, editTask, markTaskComplete, tasksToShowHandler, activeButton } = props;
 
-    console.log(tasksList);
-    const taskListDOM = tasksToShow.map((task) =>
+    //tasks to show
+    const taskListDOM = tasksList.map((task) =>
         <Task
             key={task.id}
             taskDetails={task}
             deleteTask={deleteTask}
             editTask={editTask}
             markTaskComplete={markTaskComplete}
+            activeButton={activeButton}
         />
     )
-    React.useEffect(() => {
-        setTasktoShow(tasksList);
-    }, [tasksList])
+
     return (
         <div className="mt-5">
             <h3 className="text-center">List of Tasks</h3>
@@ -31,19 +28,22 @@ function List(props) {
                 <Button
                     className={activeButton === 'All' ? 'active' : ''}
                     variant="light"
-                    onClick={() => { setActiveButton('All'); setTasktoShow(tasksList) }}>
+                    onClick={() => { tasksToShowHandler('All') }}
+                >
                     All
             </Button>{' '}{' '}
                 <Button
                     className={activeButton === 'Active' ? 'active' : ''}
                     variant="light"
-                    onClick={() => { setActiveButton('Active'); setTasktoShow(tasksList.filter((task) => task.isActive)) }}>
+                    onClick={() => { tasksToShowHandler('Active') }}
+                >
                     Active
             </Button>{' '}{' '}
                 <Button
                     className={activeButton === 'Completed' ? 'active' : ''}
                     variant="light"
-                    onClick={() => { setActiveButton('Completed'); setTasktoShow(tasksList.filter((task) => !task.isActive)) }}>
+                    onClick={() => { tasksToShowHandler('Completed') }}
+                >
                     Completed
             </Button>
             </div>
