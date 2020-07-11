@@ -5,13 +5,13 @@ import { useSelector } from 'react-redux';
 
 function AddTask(props) {
 
-    const { addTask, updateTask, task, handleChange } = props;
+    const { addTask, updateTask, task, handleChange, validated } = props;
     const state = useSelector(state => state);
 
     return (
         <>
             <h3 className="text-center">{state.editBool ? "Edit Task" : "Add a new Task"}</h3>
-            <Form className="flexDisplay" onSubmit={!state.editBool ? addTask : updateTask}>
+            <Form className="formSize flexDisplay" noValidate validated={validated} onSubmit={!state.editBool ? addTask : updateTask}>
                 <Form.Group>
                     <Form.Control
                         size="lg"

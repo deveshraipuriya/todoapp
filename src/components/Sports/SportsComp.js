@@ -26,8 +26,7 @@ export default function SportsComp() {
             return {
                 name: sport.name.toLowerCase()
             }
-        })
-        console.log(originalList);
+        });
         if (e.target.value !== "") {
             let filteredList = originalList.filter(sport => sport.name.includes(inputVal.toLowerCase()))
             setItemsToShow(filteredList);

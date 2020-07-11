@@ -13,9 +13,11 @@ import { ADD_TASK, EDIT_TASK, DELETE_TASK, BOOLEAN_FOR_EDIT, MARK_TASK_AS_COMPLE
 function MainContainer() {
 
   const [newTask, setNewTask] = useState("");   ////newTaskvalue
-  const [selectedTaskId, setSelectedTaskId] = useState("");
-  const [tasksToShow, setTasktoShow] = React.useState([]);
-  const [activeButton, setActiveButton] = React.useState('All');
+  const [validated, setValidated] = React.useState(false);  //form validation
+  const [selectedTaskId, setSelectedTaskId] = useState("");  ///task which is selected to edit
+  const [tasksToShow, setTasktoShow] = React.useState([]);   ///list of tasks to show on page according to button selection
+  const [activeButton, setActiveButton] = React.useState('All'); //state for active button
+
   ///to access redux and global state
   const state = useSelector(state => state);
   const dispatch = useDispatch();
@@ -42,14 +44,22 @@ function MainContainer() {
   ///add new task
   const addNewTask = (e) => {
     e.preventDefault();
-    let payload = {
-      id: uuidv4(),
-      task_name: newTask,
-      isActive: true
+    const form = e.currentTarget;
+    if (form.checkValidity() === false || newTask.length === 0) {
+      e.stopPropagation();
     }
-    dispatch({ type: ADD_TASK, payload })
-    setNewTask("");
-    setActiveButton('All');
+    else {
+      setValidated(true);
+      let payload = {
+        id: uuidv4(),
+        task_name: newTask,
+        isActive: true
+      }
+      dispatch({ type: ADD_TASK, payload })
+      setNewTask("");
+      setActiveButton('All');
+    }
+
   }
   ///update task name
   const updateTaskHandler = (e) => {
@@ -92,6 +102,7 @@ function MainContainer() {
           <Col md={{ span: 6, offset: 3 }}>
             <AddTask
               task={newTask}
+              validated={validated}
               addTask={addNewTask}
               handleChange={onhandleChange}
               updateTask={updateTaskHandler}
