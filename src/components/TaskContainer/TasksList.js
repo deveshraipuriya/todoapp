@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Task from './Task';
 function List(props) {
 
-    const { tasksList, deleteTask, editTask, markTaskComplete, tasksToShowHandler, activeButton } = props;
+    const { tasksList, activeButton, deleteTask, editTask, markTaskComplete, tasksToShowHandler } = props;
 
     //tasks to show
     const taskListDOM = tasksList.map((task) =>
